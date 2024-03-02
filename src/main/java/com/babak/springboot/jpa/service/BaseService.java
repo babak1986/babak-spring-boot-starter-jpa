@@ -13,6 +13,10 @@ public abstract class BaseService<E extends BaseEntity, PK extends Serializable,
 
     public abstract R getRepository();
 
+    public E find(PK id) {
+        return getRepository().findById(id).orElse(null);
+    }
+
     public E submit(E entity) {
         return getRepository().save(entity);
     }
