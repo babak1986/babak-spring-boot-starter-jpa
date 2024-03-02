@@ -1,4 +1,4 @@
-package com.babak.springboot.jpa.specification;
+package com.babak.springboot.jpa.search;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package com.babak.springboot.jpa.specification;
+package com.babak.springboot.jpa.search;
 
 /**
  * Author: Babak Behzadi
@@ -8,10 +8,11 @@ public enum SearchOperand {
     EQ,
     NO_EQ,
     IN,
-    NOT_IN,
     BETWEEN,
     LT,
+    LE,
     GT,
+    GE,
     LIKE,
     I_LIKE,
     NOT_LIKE

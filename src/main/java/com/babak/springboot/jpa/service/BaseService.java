@@ -2,6 +2,10 @@ package com.babak.springboot.jpa.service;
 
 import com.babak.springboot.jpa.domain.BaseEntity;
 import com.babak.springboot.jpa.repository.BaseRepository;
+import com.babak.springboot.jpa.search.SearchFilterModel;
+import com.babak.springboot.jpa.specification.BaseSpecification;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.io.Serializable;
 
@@ -19,5 +23,11 @@ public abstract class BaseService<E extends BaseEntity, PK extends Serializable,
 
     public E submit(E entity) {
         return getRepository().save(entity);
+    }
+
+    public <F extends SearchFilterModel> Page<E> search(F filterModel) {
+        BaseSpecification<E, F> specification = new BaseSpecification<>(filterModel);
+        return getRepository().findAll(specification,
+                Pageable.ofSize(filterModel.getPageSize()).withPage(filterModel.getPage()));
     }
 }
