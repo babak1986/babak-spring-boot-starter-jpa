@@ -62,7 +62,7 @@ public abstract class SearchFilterModel<E extends BaseEntity> {
                             case LIKE -> criteriaBuilder.like(root.get(annotation.column()), likeExpr(value));
                             case I_LIKE -> criteriaBuilder.like(criteriaBuilder.lower(root.get(annotation.column())), likeExpr(value.toString().toLowerCase()));
                             case NOT_LIKE -> criteriaBuilder.notLike(root.get(annotation.column()), likeExpr(value));
-                            default -> throw new RuntimeException("Invalid search perand");
+                            default -> throw new RuntimeException("Invalid search operand");
                         });
                     } catch (Exception e) {
                         throw new RuntimeException(e.getMessage());
