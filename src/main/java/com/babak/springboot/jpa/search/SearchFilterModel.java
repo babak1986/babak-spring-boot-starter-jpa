@@ -5,8 +5,6 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Expression;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
@@ -16,12 +14,26 @@ import java.util.List;
  * Author: Babak Behzadi
  * Email: behzadi.babak@gmail.com
  **/
-@Getter
-@Setter
 public abstract class SearchFilterModel<E extends BaseEntity> {
 
     private int page;
     private int pageSize;
+
+    public int getPage() {
+        return page;
+    }
+
+    public void setPage(int page) {
+        this.page = page;
+    }
+
+    public int getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
 
     public abstract List<SearchFilterCondition> conditions();
 

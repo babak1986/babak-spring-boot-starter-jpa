@@ -1,8 +1,6 @@
 package com.babak.springboot.jpa.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
 import org.springframework.data.util.ProxyUtils;
 import org.springframework.lang.Nullable;
 
@@ -14,8 +12,6 @@ import java.time.LocalDateTime;
  * Email: behzadi.babak@gmail.com
  **/
 @MappedSuperclass
-@Getter
-@Setter
 public abstract class BaseEntity<PK extends Serializable> {
 
     @Id
@@ -31,6 +27,50 @@ public abstract class BaseEntity<PK extends Serializable> {
     @Temporal(TemporalType.TIMESTAMP)
     @Nullable
     private LocalDateTime modifiedDate;
+
+    public PK getId() {
+        return id;
+    }
+
+    public void setId(PK id) {
+        this.id = id;
+    }
+
+    @Nullable
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(@Nullable String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    @Nullable
+    public LocalDateTime getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(@Nullable LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    @Nullable
+    public String getModifiedBy() {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(@Nullable String modifiedBy) {
+        this.modifiedBy = modifiedBy;
+    }
+
+    @Nullable
+    public LocalDateTime getModifiedDate() {
+        return modifiedDate;
+    }
+
+    public void setModifiedDate(@Nullable LocalDateTime modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
 
     @Override
     public String toString() {

@@ -6,17 +6,19 @@ import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Predicate;
 import jakarta.persistence.criteria.Root;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 
 /**
  * Author: Babak Behzadi
  * Email: behzadi.babak@gmail.com
  **/
-@RequiredArgsConstructor
 public class BaseSpecification<E extends BaseEntity, F extends SearchFilterModel> implements Specification<E> {
 
     private final F filterModel;
+
+    public BaseSpecification(F filterModel) {
+        this.filterModel = filterModel;
+    }
 
     @Override
     public Predicate toPredicate(Root<E> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
