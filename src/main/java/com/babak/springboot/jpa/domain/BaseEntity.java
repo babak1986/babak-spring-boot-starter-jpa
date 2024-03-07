@@ -7,7 +7,7 @@ import org.springframework.data.util.ProxyUtils;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * Author: Babak Behzadi
@@ -25,12 +25,12 @@ public abstract class BaseEntity<PK extends Serializable> {
     private String createdBy;
     @Temporal(TemporalType.TIMESTAMP)
     @Nullable
-    private Date createdDate;
+    private LocalDateTime createdDate;
     @Nullable
     private String modifiedBy;
     @Temporal(TemporalType.TIMESTAMP)
     @Nullable
-    private Date modifiedDate;
+    private LocalDateTime modifiedDate;
 
     @Override
     public String toString() {
@@ -61,5 +61,16 @@ public abstract class BaseEntity<PK extends Serializable> {
     @Transient
     public boolean isNew() {
         return id == null;
+    }
+
+    @PrePersist
+    public void prePersist() {
+        this.createdDate = LocalDateTime.now();
+        this.modifiedDate = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.modifiedDate = LocalDateTime.now();
     }
 }
