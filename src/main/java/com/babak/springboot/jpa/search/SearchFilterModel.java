@@ -45,7 +45,15 @@ public abstract class SearchFilterModel<E extends BaseEntity> {
     }
 
     private String likeExpr(Object value) {
-        return "%" + value + "%";
+        return likeExpr(value, null);
+    }
+
+    private String likeExpr(Object value, SearchOperand operand) {
+        return switch (operand) {
+            case STARTS_WITH -> value + "%";
+            case ENDS_WITH -> "%" + value;
+            default -> "%" + value + "%";
+        };
     }
 
     public List<Predicate> toPredicates(Root<E> root, CriteriaBuilder criteriaBuilder) {
@@ -72,8 +80,13 @@ public abstract class SearchFilterModel<E extends BaseEntity> {
                             case GT -> criteriaBuilder.greaterThan(root.get(annotation.column()), (Comparable) value);
                             case GE -> criteriaBuilder.ge(root.get(annotation.column()), (Expression<? extends Number>) value);
                             case LIKE -> criteriaBuilder.like(root.get(annotation.column()), likeExpr(value));
-                            case I_LIKE -> criteriaBuilder.like(criteriaBuilder.lower(root.get(annotation.column())), likeExpr(value.toString().toLowerCase()));
+                            case I_LIKE -> criteriaBuilder.like(criteriaBuilder.lower(root.get(annotation.column())),
+                                    likeExpr(value.toString().toLowerCase()));
                             case NOT_LIKE -> criteriaBuilder.notLike(root.get(annotation.column()), likeExpr(value));
+                            case STARTS_WITH -> criteriaBuilder.like(root.get(annotation.column()),
+                                    likeExpr(value, SearchOperand.STARTS_WITH));
+                            case ENDS_WITH -> criteriaBuilder.like(root.get(annotation.column()),
+                                    likeExpr(value, SearchOperand.ENDS_WITH));
                             default -> throw new RuntimeException("Invalid search operand");
                         });
                     } catch (Exception e) {

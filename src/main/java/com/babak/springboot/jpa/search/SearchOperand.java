@@ -15,5 +15,7 @@ public enum SearchOperand {
     GE,
     LIKE,
     I_LIKE,
-    NOT_LIKE
+    NOT_LIKE,
+    STARTS_WITH,
+    ENDS_WITH
 }
