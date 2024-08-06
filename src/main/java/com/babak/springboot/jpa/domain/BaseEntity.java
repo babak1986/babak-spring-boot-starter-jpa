@@ -27,6 +27,7 @@ public abstract class BaseEntity<PK extends Serializable> {
     @Temporal(TemporalType.TIMESTAMP)
     @Nullable
     private LocalDateTime modifiedDate;
+    private Boolean deleted;
 
     public PK getId() {
         return id;
@@ -70,6 +71,14 @@ public abstract class BaseEntity<PK extends Serializable> {
 
     public void setModifiedDate(@Nullable LocalDateTime modifiedDate) {
         this.modifiedDate = modifiedDate;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

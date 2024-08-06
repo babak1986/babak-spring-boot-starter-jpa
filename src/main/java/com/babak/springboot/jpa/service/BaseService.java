@@ -33,6 +33,15 @@ public abstract class BaseService<E extends BaseEntity, PK extends Serializable,
         return getRepository().save(entity);
     }
 
+    protected void delete(E entity) {
+        getRepository().delete(entity);
+    }
+
+    protected void deleteLogically(E entity) {
+        entity.setDeleted(true);
+        submit(entity);
+    }
+
     protected <F extends SearchFilterModel> Page<E> search(F filterModel) {
         BaseSpecification<E, F> specification = new BaseSpecification<>(filterModel);
         return getRepository().findAll(specification,
