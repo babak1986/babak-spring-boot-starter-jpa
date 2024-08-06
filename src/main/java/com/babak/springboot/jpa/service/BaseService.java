@@ -21,19 +21,19 @@ public abstract class BaseService<E extends BaseEntity, PK extends Serializable,
         this.repository = repository;
     }
 
-    public R getRepository() {
+    protected R getRepository() {
         return repository;
     }
 
-    public E find(PK id) {
+    protected E find(PK id) {
         return getRepository().findById(id).orElse(null);
     }
 
-    public E submit(E entity) {
+    protected E submit(E entity) {
         return getRepository().save(entity);
     }
 
-    public <F extends SearchFilterModel> Page<E> search(F filterModel) {
+    protected <F extends SearchFilterModel> Page<E> search(F filterModel) {
         BaseSpecification<E, F> specification = new BaseSpecification<>(filterModel);
         return getRepository().findAll(specification,
                 Pageable.ofSize(filterModel.getPageSize()).withPage(filterModel.getPage()));
