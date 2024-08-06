@@ -15,7 +15,15 @@ import java.io.Serializable;
  **/
 public abstract class BaseService<E extends BaseEntity, PK extends Serializable, R extends BaseRepository<E, PK>> {
 
-    public abstract R getRepository();
+    private final R repository;
+
+    protected BaseService(R repository) {
+        this.repository = repository;
+    }
+
+    public R getRepository() {
+        return repository;
+    }
 
     public E find(PK id) {
         return getRepository().findById(id).orElse(null);
