@@ -5,7 +5,7 @@ import org.springframework.data.util.ProxyUtils;
 import org.springframework.lang.Nullable;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * Author: Babak Behzadi
@@ -21,12 +21,12 @@ public abstract class BaseEntity<PK extends Serializable> {
     private String createdBy;
     @Temporal(TemporalType.TIMESTAMP)
     @Nullable
-    private LocalDateTime createdDate;
+    private Date createdDate;
     @Nullable
     private String modifiedBy;
     @Temporal(TemporalType.TIMESTAMP)
     @Nullable
-    private LocalDateTime modifiedDate;
+    private Date modifiedDate;
     private Boolean deleted;
 
     public PK getId() {
@@ -47,11 +47,11 @@ public abstract class BaseEntity<PK extends Serializable> {
     }
 
     @Nullable
-    public LocalDateTime getCreatedDate() {
+    public Date getCreatedDate() {
         return createdDate;
     }
 
-    public void setCreatedDate(@Nullable LocalDateTime createdDate) {
+    public void setCreatedDate(@Nullable Date createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -65,11 +65,11 @@ public abstract class BaseEntity<PK extends Serializable> {
     }
 
     @Nullable
-    public LocalDateTime getModifiedDate() {
+    public Date getModifiedDate() {
         return modifiedDate;
     }
 
-    public void setModifiedDate(@Nullable LocalDateTime modifiedDate) {
+    public void setModifiedDate(@Nullable Date modifiedDate) {
         this.modifiedDate = modifiedDate;
     }
 
@@ -114,12 +114,12 @@ public abstract class BaseEntity<PK extends Serializable> {
 
     @PrePersist
     public void prePersist() {
-        this.createdDate = LocalDateTime.now();
-        this.modifiedDate = LocalDateTime.now();
+        this.createdDate = new Date();
+        this.modifiedDate = new Date();
     }
 
     @PreUpdate
     public void preUpdate() {
-        this.modifiedDate = LocalDateTime.now();
+        this.modifiedDate = new Date();
     }
 }
